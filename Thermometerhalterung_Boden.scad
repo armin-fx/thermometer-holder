@@ -1,7 +1,7 @@
 
 /* [settings] */
 //
-type="ground"; // [ground,hook]
+type="ground"; // ["ground", "hook"]
 //
 wall = 1.5;
 
@@ -28,7 +28,7 @@ hook_gap    =   0.5;
 
 /* [Hidden] */
 
-include <tools.scad>
+include <banded.scad>
 
 if (type=="ground") union()
 {
@@ -95,12 +95,12 @@ module holder_thermometer ()
 	difference()
 	{
 		cylinder_edges_rounded(d=scape_diameter+2*wall, h=scape_height+wall,
-			r_bottom=max(0,(scape_diameter+2*wall-ground_diameter)/2), r_top=wall/2);
+			r_edges=[max(0,(scape_diameter+2*wall-ground_diameter)/2), wall/2]);
 		union()
 		{
 			translate_z(wall)
 			cylinder_edges_rounded (d=scape_diameter, h=scape_height+extra,
-				r_bottom=scape_diameter/3);
+				r_edges=[scape_diameter/3, 0]);
 			//
 			for (a=[0:360/3:359])
 			{

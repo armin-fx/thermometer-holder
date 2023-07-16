@@ -4,6 +4,10 @@
 type="ground"; // ["ground", "hook"]
 //
 wall = 1.5;
+//
+printable_position = false;
+//
+show_thermometer = true;
 
 /* [thermometer holder] */
 //
@@ -32,22 +36,41 @@ include <banded.scad>
 
 if (type=="ground") union()
 {
-	holder_ground();
-	//
-	translate_z(shaft_height)
-	holder_thermometer();
+	m = ! printable_position
+		? identity_matrix (4)
+		: matrix_rotate_y (180) *
+		  matrix_translate_z (-shaft_height - scape_height-wall)
+	;
+	
+	multmatrix (m)
+	{
+		holder_ground();
+		//
+		translate_z(shaft_height)
+		holder_thermometer();
+		
+		if (show_thermometer && $preview && !printable_position)
+			translate_z(shaft_height + wall)
+			thermometer();
+	}
 }
 else if (type=="hook") union()
 {
 	translate_z(scape_height+wall)
-	holder_hook ();
+	holder_hook();
 	//
 	holder_thermometer();
+	
+	if (show_thermometer && $preview && !printable_position)
+		translate_z(wall)
+		thermometer();
 }
 
 $fa=10; $fs=0.3;
 //$fn=24;
 
+
+// TODO - not useable yet -
 module holder_hook ()
 {
 	hook_angle = 120; // in Grad
@@ -120,6 +143,28 @@ module holder_thermometer ()
 				}
 			}
 		}
+	}
+}
+
+module thermometer()
+{
+	h_full = 145;
+	//
+	d_chamber = scape_diameter-1;
+	h_chamber = 16;
+	d_shaft   = scape_diameter - 0.1;
+	
+	color ("red", alpha=0.3)
+	cylinder_edges_rounded (h=h_chamber, d=d_chamber, r_edges=[d_chamber/3,0]);
+	
+	color ("orange", alpha=0.3)
+	union()
+	{
+		translate_z (h_chamber)
+		cylinder (h=2, d1=d_chamber, d2=d_shaft);
+		
+		translate_z (h_chamber+2)
+		cylinder_edges_rounded (h=h_full - (h_chamber+2), d=d_shaft, r_edges=[0,d_shaft/3]);
 	}
 }
 

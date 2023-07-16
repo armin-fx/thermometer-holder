@@ -2,7 +2,8 @@ thermometer-holder
 ==================
 
 A 3D model for a holder for aquarium glass thermometer.\
-It can thus be inserted into the aquarium floor. 
+It can thus be inserted into the aquarium gravel. 
+Thermometer with shaft diameter 6mm.
 
 
 ### 3D printing

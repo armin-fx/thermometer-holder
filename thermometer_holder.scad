@@ -118,12 +118,12 @@ module holder_thermometer ()
 	difference()
 	{
 		cylinder_edges_rounded(d=scape_diameter+2*wall, h=scape_height+wall,
-			r_edges=[max(0,(scape_diameter+2*wall-ground_diameter)/2), wall/2]);
+			edges=[max(0,(scape_diameter+2*wall-ground_diameter)/2), wall/2]);
 		union()
 		{
 			translate_z(wall)
 			cylinder_edges_rounded (d=scape_diameter, h=scape_height+extra,
-				r_edges=[scape_diameter/3, 0]);
+				edges=[scape_diameter/3, 0]);
 			//
 			for (a=[0:360/3:359])
 			{
@@ -155,7 +155,7 @@ module thermometer()
 	d_shaft   = scape_diameter - 0.1;
 	
 	color ("red", alpha=0.3)
-	cylinder_edges_rounded (h=h_chamber, d=d_chamber, r_edges=[d_chamber/3,0]);
+	cylinder_edges_rounded (h=h_chamber, d=d_chamber, edges=[d_chamber/3,0]);
 	
 	color ("orange", alpha=0.3)
 	union()
@@ -164,7 +164,7 @@ module thermometer()
 		cylinder (h=2, d1=d_chamber, d2=d_shaft);
 		
 		translate_z (h_chamber+2)
-		cylinder_edges_rounded (h=h_full - (h_chamber+2), d=d_shaft, r_edges=[0,d_shaft/3]);
+		cylinder_edges_rounded (h=h_full - (h_chamber+2), d=d_shaft, edges=[0,d_shaft/3]);
 	}
 }
 

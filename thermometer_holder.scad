@@ -1,3 +1,7 @@
+// Description:
+//
+// A 3D model for a holder for aquarium glass thermometer.
+// It can thus be inserted into the aquarium gravel.
 
 /* [settings] */
 //
@@ -33,6 +37,7 @@ hook_gap    =   0.5;
 /* [Hidden] */
 
 include <banded.scad>
+required_version ([2,10,1]);
 
 if (type=="ground") union()
 {

@@ -37,7 +37,7 @@ hook_gap    =   0.5;
 /* [Hidden] */
 
 include <banded.scad>
-required_version ([2,10,1]);
+required_version ([3,0,0]);
 
 if (type=="ground") union()
 {
